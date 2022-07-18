@@ -1,62 +1,41 @@
-/* const {frutas,dinero}= require("./frutas")
-const cowsay= require("cowsay")
+const express=require('express')
+const app = express()
+const port = 3000
+//conexion a base de datos
+const mongoose = require('mongoose')
+const user = 'caballo'
+const password = 'qKa6liwnhiXJgr3D'
+const dbname = 'Caballos'
+const uri = `mongodb+srv://${user}:${password}@cluster0.qb3hlej.mongodb.net/${dbname}?retryWrites=true&w=majority`
 
-frutas.forEach(element => {
-    console.count(element)
+
+
+mongoose.connect(uri,
+       {useNewUrlParser:true,useUnifiedTopology:true}
+)
+     .then(()=>console.log("base de datos conectada"))
+     .catch(e=>console.log(e))
+
+
+//motor de plantillas para ejs
+app.set('view engine','ejs')
+app.set('views',__dirname +'/views')
+
+app.use(express.static(__dirname+"/public"))
+app.use((req, res, next) => {
+    console.log('Time: %d', Date.now())
+    next()
+  })
+app.use('/',require('./routers/rutasWeb') )
+app.use('/mascotas',require('./routers/Mascotas') )
+app.use('/establos',require('./routers/establos') )
+app.use((req,res,next)=>{
+    res.status(404).render("404",{
+        titulo:"pagina 404",
+        parrafo: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, itaque? Odit deleniti quo officia dolorem adipisci dicta. Id, eos illum.",
+       
+    })
 })
-console.log(dinero)
 
+app.listen(port,()=>console.log('enviado por puerto:',port))
 
-console.log(cowsay.say({
-    text:'hola mondillo animal',
-    e:'go',
-    T:'W'
-    }));
-
- const naan=(num1,num2)=>(num1*num2-6)
- 
- console.log(naan(20,15));
-    
-const mensaje=nombre=>'hola soy'+ nombre
-console.log(mensaje('juanito'));
-const numero= (num=3)=>num*6
-
-console.log(numero())
-// templete string
-
-const hilo= (n1)=>`soy el numero: ${n1}`
-console.log(hilo(25));
-// objeto
-
-const obj={
-    dir:"calle 21 56",
-    name:'emmanuel',
-    pais:'colombia'
-}
-obj.far={deporte:"tenis",
-der:false,vara:['casa','burro']}
-
-const {vara}=obj
-console.log(vara);
-let a, b, rest;
-[a, b] = [10, 20];
-
-console.log(a);
-// expected output: 10
-
-console.log(b);
-// expected output: 20
-
-[a, b, ...rest] = [10, 25, 30, 40, 50];
-
-console.log(rest,b);
-// expected output: Array [30,40,50] */
-
-
-
-fetch('https://randomuser.me/api/');
-
-   then(res=>res.json())
-   then(data=>{console.log(data);})
-//gghhahha
-   console.log(data);

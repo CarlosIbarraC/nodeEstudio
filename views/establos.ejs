@@ -1,0 +1,34 @@
+<%- include("template/cabecera",{tituloWeb:"index",link:"CASA"}) %>    
+       
+        
+        
+        <div class="container">
+            <h1 >Establos</h1>
+            <table class="table table-dark">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">name</th>
+                    <th scope="col">descripcion</th>
+                    <th scope="col">Rango</th>
+                    <th scope="col">editar</th>
+                  </tr>
+                </thead>
+                <tbody>
+           <% if (arrayEstablos.length>0) { %>
+            <% arrayEstablos.forEach(element => { %>
+                <tr>
+                    <th scope="row"><%= element.id %> </th>
+                    <td><%= element.nombre %></td>
+                    <td><%= element.descripcion %></td>
+                    <td><%= element.rango %></td>
+                    <td><button> edit</button></td>
+                  </tr>
+            <% }) %>
+           <% } %>
+        </tbody>
+    </table>
+        </div>
+        
+
+        <%- include("template/footer") %>
